@@ -1,0 +1,9 @@
+尺寸策略(sizePolicy)
+sizeHint(期望尺寸)
+默认尺寸
+对于大多数控件来说，sizeHint的值是只读的
+读取期望尺寸
+
+最小期望尺寸
+self.pushButton.minimumSizeHint().height()
+self.pushButton.minimumSizeHint().width()
