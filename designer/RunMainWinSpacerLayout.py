@@ -1,5 +1,5 @@
 import sys
-import MainWinSpacer
+from designer import MainWinSpacer
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
 if __name__ == '__main__':
