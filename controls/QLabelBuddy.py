@@ -25,11 +25,12 @@ class QLabelBuddy(QDialog):
         mainLayout.addWidget(passwordLineEdit,1,1,1,2)
         mainLayout.addWidget(btnOk,2,1)
         mainLayout.addWidget(btnCancel,2,2)
-        if __name__ == '__main__':
-            app = QApplication(sys.argv)
-            main =QLabelBuddy()
-            main.show()
-            sys.exit(app.exec_())
+if __name__ == '__main__':
+        app = QApplication(sys.argv)
+        main =QLabelBuddy()
+        main.show()
+
+        sys.exit(app.exec_())
 
 
 
