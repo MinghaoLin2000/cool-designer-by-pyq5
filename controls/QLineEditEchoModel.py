@@ -7,8 +7,6 @@
     4.passwordEchoonEdit
 
 
-
-
 '''
 from PyQt5.QtWidgets import *
 import sys
