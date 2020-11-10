@@ -15,6 +15,7 @@ class MainUi(QMainWindow):
         self.main_widget.setLayout(self.main_layout)
         self.init_left()
         self.init_right()
+        self.left_widget.setStyleSheet('background-color:qlineargradient(x1:0, y1:0, x2:1, y2:1,stop:0 red,stop:0.4 gray,stop:0.8 orange,stop:1 green);')
         self.main_layout.addWidget(self.left_widget,0,0,1,1)
         self.main_layout.addWidget(self.right_widget1,0,1,1,6)
         self.main_layout.addWidget(self.right_widget2,0,1,1,6)
@@ -24,11 +25,11 @@ class MainUi(QMainWindow):
     def init_left(self):
         self.left_widget=QWidget() #创建左侧部件
         self.left_widget.setObjectName('left_widget') #左侧部件对象命名
-        self.left_layout=QGridLayout()
-        self.Button1=QPushButton("进入界面1")
-        self.Button2=QPushButton("进入界面2")
-        self.left_layout.addWidget(self.Button1,0,0,1,1)
-        self.left_layout.addWidget(self.Button2,0,1,1,1)
+        self.left_layout=QVBoxLayout()
+        self.Button1=QPushButton("frida")
+        self.Button2=QPushButton("xposed")
+        self.left_layout.addWidget(self.Button1)
+        self.left_layout.addWidget(self.Button2)
         self.left_widget.setLayout(self.left_layout)
 
         # 把切换界面的button和两个跳转函数进行绑定
