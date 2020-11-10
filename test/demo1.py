@@ -1,11 +1,14 @@
 import sys,math
 from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
 class MainUi(QMainWindow):
     def __init__(self):
         super(MainUi, self).__init__()
+        self.setObjectName('MainWindow')
+        self.setStyleSheet('#MainWindow{border-image:url(images/1.jpg);}')
         self.initUI()
     def initUI(self):
-        self.resize(1000,800)
+        self.resize(1500,800)
         self.desktopWidth=QApplication.desktop().width() #当前桌面的宽
         self.desktopHeight=QApplication.desktop().height() #当前桌面的高
 
@@ -15,10 +18,10 @@ class MainUi(QMainWindow):
         self.main_widget.setLayout(self.main_layout)
         self.init_left()
         self.init_right()
-        self.left_widget.setStyleSheet('background-color:qlineargradient(x1:0, y1:0, x2:1, y2:1,stop:0 red,stop:0.4 gray,stop:0.8 orange,stop:1 green);')
+        #self.left_widget.setStyleSheet('background-color:qlineargradient(x1:0, y1:0, x2:1, y2:1,stop:0 red,stop:0.4 gray,stop:0.8 orange,stop:1 green);')
         self.main_layout.addWidget(self.left_widget,0,0,1,1)
-        self.main_layout.addWidget(self.right_widget1,0,1,1,6)
-        self.main_layout.addWidget(self.right_widget2,0,1,1,6)
+        self.main_layout.addWidget(self.right_widget1,0,1,-1,3)
+        self.main_layout.addWidget(self.right_widget2,0,1,-1,3)
         self.right_widget1.hide()
         self.right_widget2.show()
         self.setCentralWidget(self.main_widget)
@@ -26,11 +29,21 @@ class MainUi(QMainWindow):
         self.left_widget=QWidget() #创建左侧部件
         self.left_widget.setObjectName('left_widget') #左侧部件对象命名
         self.left_layout=QVBoxLayout()
-        self.Button1=QPushButton("frida")
-        self.Button2=QPushButton("xposed")
+        self.Button1=QPushButton("Frida")
+        self.Button2=QPushButton("Xposed")
+        self.Button3 = QPushButton("Device")
+        self.Button4 = QPushButton("Poc")
+        self.left_layout
         self.left_layout.addWidget(self.Button1)
+        self.left_layout.addStretch(1)
         self.left_layout.addWidget(self.Button2)
+        self.left_layout.addStretch(1)
+        self.left_layout.addWidget(self.Button3)
+        self.left_layout.addStretch(1)
+        self.left_layout.addWidget(self.Button4)
+
         self.left_widget.setLayout(self.left_layout)
+
 
         # 把切换界面的button和两个跳转函数进行绑定
         self.Button1.clicked.connect(self.clicked_1)
