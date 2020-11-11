@@ -1,6 +1,8 @@
-import sys,math
+import sys
+
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
+
+
 class MainUi(QMainWindow):
     def __init__(self):
         super(MainUi, self).__init__()

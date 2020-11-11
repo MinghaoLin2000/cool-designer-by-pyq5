@@ -114,6 +114,7 @@ class loginWnd(QWidget):
         self._layout = QVBoxLayout(spacing=0)
         self._layout.setContentsMargins(0, 0, 0, 0)
         self.setAutoFillBackground(True)
+
         #self.setWindowOpacity(0.1)
         window_pale = QtGui.QPalette()
         window_pale.setBrush(self.backgroundRole(), QtGui.QBrush(QtGui.QPixmap("images/2.jpg")))
@@ -129,9 +130,9 @@ class loginWnd(QWidget):
         self.main_layout.setAlignment(Qt.AlignCenter)
 
         self.name_label = QLabel('用户名:')
-        self.name_label.setStyleSheet("color:black;")
+        self.name_label.setStyleSheet("color:white;")
         self.passwd_label = QLabel('密码:')
-        self.passwd_label.setStyleSheet("color:black;")
+        self.passwd_label.setStyleSheet("color:white;")
 
         self.name_box = QLineEdit()
         #name_box.setEditable(True)
@@ -193,6 +194,6 @@ if __name__ == '__main__':
     mainWnd.setWindowTitle("Android hook")
     mainWnd.resize(1000,500)
     #mainWnd.setObjectName("MainWindow")
-    #mainWnd.setStyleSheet("border-image:url(images/2.jpg)")
+    #mainWnd.setStyleSheet("#MainWindow{border-image:url(images/2.jpg)}")
     mainWnd.show()
     app.exec_()
