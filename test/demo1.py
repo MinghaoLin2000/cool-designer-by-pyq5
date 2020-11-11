@@ -1,14 +1,15 @@
 import sys
 
-from PyQt5.QtCore import QRect
+from PyQt5.QtCore import QRect, QSize
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import *
 
 
 class MainUi(QWidget):
     def __init__(self):
         super(MainUi, self).__init__()
-        #self.setObjectName('MainWindow')
-        #self.setStyleSheet('#MainWindow{border-image:url(images/1.jpg);}')
+        self.setObjectName('MainWindow')
+        self.setStyleSheet('#MainWindow{border-image:url(images/1.jpg);}')
         self.initUI()
     #采用堆栈窗口控件
     def initUI(self):
@@ -16,9 +17,19 @@ class MainUi(QWidget):
         self.setWindowTitle("Android killer growing")
         #列表控件，列举出主要hook的东西
         self.list=QListWidget()
-        self.list.insertItem(0,"Frida")
-        self.list.insertItem(1,"Xposed")
-        self.list.insertItem(2,"Device")
+        self.list.setStyleSheet("QListWidget{border:1px solid gray; color:black; }"
+                           "QListWidget::Item{padding-top:20px; padding-bottom:4px; }"
+                           "QListWidget::Item:hover{background:skyblue; }"
+                           "QListWidget::item:selected{background:lightgray; color:white; }"
+                           "QListWidget::item:selected:!active{border-width:0px; background:lightgreen; }"
+                           )
+        item1 = QListWidgetItem(QIcon('images/3.png'), 'Frida')
+        item2 = QListWidgetItem(QIcon('images/1.png'), 'Xposed')
+        item3 = QListWidgetItem(QIcon('images/2.png'), 'Device')
+        self.list.setIconSize(QSize(100,100))
+        self.list.insertItem(0,item1)
+        self.list.insertItem(1,item2)
+        self.list.insertItem(2,item3)
 
         self.stack1=QWidget()
         self.stack2=QWidget()
