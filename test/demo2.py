@@ -1,59 +1,62 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
-
-"""
-PyQt5 教程
-
-这个例子说明如何使用QSplitter部件。
-
-作者：我的世界你曾经来过
-博客：http://blog.csdn.net/weiaitaowang
-最后编辑：2016年8月4日
-"""
-
+#QListWidget 控件使用
+from PyQt5.QtWidgets import   QMessageBox,QListWidget,QListWidgetItem, QStatusBar,  QMenuBar,QMenu,QAction,QLineEdit,QStyle,QFormLayout,   QVBoxLayout,QWidget,QApplication ,QHBoxLayout, QPushButton,QMainWindow,QGridLayout,QLabel
+from PyQt5.QtGui import QIcon,QPixmap,QStandardItem,QStandardItemModel,QCursor
+from PyQt5.QtCore import QStringListModel,QAbstractListModel,QModelIndex,QSize,Qt
 import sys
-from PyQt5.QtWidgets import (QApplication, QWidget, QHBoxLayout,
-QFrame, QSplitter)
-from PyQt5.QtCore import Qt
 
-class Example(QWidget):
+class WindowClass(QWidget):
 
-  def __init__(self):
-    super().__init__()
+    def __init__(self,parent=None):
+        self.f=""
+        super(WindowClass, self).__init__(parent)
+        self.layout=QVBoxLayout()
+        self.resize(400,300)
+        self.view=QListWidget()
+        #self.view.setViewMode(QListWidget.ListMode) #QListWidget.IconMode
 
-    self.initUI()
+        self.view.setLineWidth(50)
+        self.view.addItems(["C","A","D","S"])
+        self.layout.addWidget(self.view)
+        self.setLayout(self.layout)
 
-  def initUI(self):
+        self.view.clicked.connect(self.check)#单击选中某一个选项
+        '''''
+            创建右键菜单
+            '''
+        # 必须将ContextMenuPolicy设置为Qt.CustomContextMenu
+        # 否则无法使用customContextMenuRequested信号
+        self.setContextMenuPolicy(Qt.CustomContextMenu)
 
-    hbox = QHBoxLayout(self)
 
-    topleft = QFrame(self)
-    topleft.setFrameShape(QFrame.StyledPanel)
+        # 创建QMenu
+        self.contextMenu = QMenu(self)
+        self.actionA = self.contextMenu.addAction(QIcon("images/0.png"), u'|  删除')
 
-    topright = QFrame(self)
-    topright.setFrameShape(QFrame.StyledPanel)
+        # 显示菜单
+        self.customContextMenuRequested.connect(self.showContextMenu)
 
-    bottom = QFrame(self)
-    bottom.setFrameShape(QFrame.StyledPanel)
+        #点击删除menu
+        self.contextMenu.triggered[QAction].connect(self.remove)
 
-    splitter1 = QSplitter(Qt.Horizontal)
-    splitter1.addWidget(topleft)
-    splitter1.addWidget(topright)
+    def check(self,index):
+        r=index.row()
+        self.f=r;
+    def showContextMenu(self):
+        #如果有选中项，则显示显示菜单
+        items=self.view.selectedIndexes()
+        if items:
+          self.contextMenu.show()
+          self.contextMenu.exec_(QCursor.pos())  # 在鼠标位置显示
+    def remove(self,qAction):
+        print(self.f)
+        #self.view.takeItem(self.f)#删除行(实际上是断开了与list的联系)
 
-    splitter2 = QSplitter(Qt.Vertical)
-    splitter2.addWidget(splitter1)
-    splitter2.addWidget(bottom)
+        #注意：removeItemWidget(self, QListWidgetItem)  # 移除一个Item，无返回值
+        #注意：takeItem(self, int)  # 切断一个Item与List的联系，返回该Item
+        self.view.removeItemWidget(self.view.takeItem(self.f))  #删除
 
-    hbox.addWidget(splitter2)
-    self.setLayout(hbox)
-
-    self.setGeometry(300, 300, 300, 200)
-    self.setWindowTitle('窗口分隔')
-    self.show()
-
-if __name__ == '__main__':
-
-  app = QApplication(sys.argv)
-  ex = Example()
-  sys.exit(app.exec_())
-
+if __name__=="__main__":
+    app=QApplication(sys.argv)
+    win=WindowClass()
+    win.show()
+    sys.exit(app.exec_())

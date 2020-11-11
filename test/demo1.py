@@ -4,13 +4,68 @@ from PyQt5.QtCore import QRect
 from PyQt5.QtWidgets import *
 
 
-class MainUi(QMainWindow):
+class MainUi(QWidget):
     def __init__(self):
         super(MainUi, self).__init__()
-        self.setObjectName('MainWindow')
-        self.setStyleSheet('#MainWindow{border-image:url(images/1.jpg);}')
+        #self.setObjectName('MainWindow')
+        #self.setStyleSheet('#MainWindow{border-image:url(images/1.jpg);}')
         self.initUI()
+    #采用堆栈窗口控件
     def initUI(self):
+        self.resize(1500,800)
+        self.setWindowTitle("Android killer growing")
+        #列表控件，列举出主要hook的东西
+        self.list=QListWidget()
+        self.list.insertItem(0,"Frida")
+        self.list.insertItem(1,"Xposed")
+        self.list.insertItem(2,"Device")
+
+        self.stack1=QWidget()
+        self.stack2=QWidget()
+        self.stack3=QWidget()
+        self.tab1UI()
+        self.tab2UI()
+        self.tab3UI()
+
+        self.stack=QStackedWidget()
+        self.stack.addWidget(self.stack1)
+        self.stack.addWidget(self.stack2)
+        self.stack.addWidget(self.stack3)
+        hbox=QHBoxLayout()
+        hbox.addWidget(self.list,1)
+        hbox.addWidget(self.stack,3)
+        self.setLayout(hbox)
+
+        self.list.currentRowChanged.connect(self.display)
+    def display(self,index):
+        self.stack.setCurrentIndex(index)
+    def tab1UI(self):
+        #java层和native层的按钮，水平布局
+        layout2=QVBoxLayout()
+        layout1=QTabWidget()
+        self.tab1 = QWidget()
+        self.tab2 = QWidget()
+        self.tab3 = QWidget()
+        layout1.addTab(self.tab1,"frida java script")
+        layout1.addTab(self.tab2,"frida native script")
+        label1=QLabel()
+        label2=QLabel()
+        layout2.addWidget(layout1)
+        layout2.addWidget(label1)
+        layout2.addWidget(label2)
+        self.stack1.setLayout(layout2)
+    def tab2UI(self):
+        #Xposed 还没开始学，这波估计得等到frida结束
+        layout2=QVBoxLayout()
+        label2=QLabel("未完待续")
+        self.stack2.setLayout(layout2)
+    def tab3UI(self):
+        #device 这里adb搞定一切问题
+        layout2=QVBoxLayout()
+        label2=QLabel("未完待续")
+        self.stack3.setLayout(layout2)
+
+    '''def initUI(self):
         self.resize(1500,800)
         self.desktopWidth=QApplication.desktop().width() #当前桌面的宽
         self.desktopHeight=QApplication.desktop().height() #当前桌面的高
@@ -31,11 +86,6 @@ class MainUi(QMainWindow):
         self.left_widget=QWidget() #创建左侧部件
         self.left_widget.setObjectName('left_widget') #左侧部件对象命名
         self.left_layout=QVBoxLayout()
-        qscrollarea=QScrollArea(self.left_widget)
-        qscrollarea.setGeometry(QRect(50,100,600,500))
-        qscrollarea.setWidgetResizable(True)
-        listWidget=QListWidget()
-        qscrollarea.setWidget(listWidget)
         self.Button1=QPushButton("Frida")
         self.Button2=QPushButton("Xposed")
         self.Button3 = QPushButton("Device")
@@ -75,6 +125,7 @@ class MainUi(QMainWindow):
     def clicked_2(self):
         self.right_widget2.hide()
         self.right_widget1.show()
+    '''
     #显示一波小组件
     '''def clicked_3(self):
         self.Button5.show()
