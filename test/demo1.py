@@ -1,5 +1,6 @@
 import sys
 
+from PyQt5.QtCore import QRect
 from PyQt5.QtWidgets import *
 
 
@@ -13,7 +14,6 @@ class MainUi(QMainWindow):
         self.resize(1500,800)
         self.desktopWidth=QApplication.desktop().width() #当前桌面的宽
         self.desktopHeight=QApplication.desktop().height() #当前桌面的高
-
         self.main_widget=QWidget() #创建窗口主部件
         self.main_widget.setObjectName("main_widget")
         self.main_layout=QGridLayout() #创建网格布局的对象
@@ -31,17 +31,20 @@ class MainUi(QMainWindow):
         self.left_widget=QWidget() #创建左侧部件
         self.left_widget.setObjectName('left_widget') #左侧部件对象命名
         self.left_layout=QVBoxLayout()
+        qscrollarea=QScrollArea(self.left_widget)
+        qscrollarea.setGeometry(QRect(50,100,600,500))
+        qscrollarea.setWidgetResizable(True)
+        listWidget=QListWidget()
+        qscrollarea.setWidget(listWidget)
         self.Button1=QPushButton("Frida")
         self.Button2=QPushButton("Xposed")
         self.Button3 = QPushButton("Device")
         self.Button4 = QPushButton("Poc")
-        self.left_layout
         self.left_layout.addWidget(self.Button1)
-        self.left_layout.addStretch(1)
         self.left_layout.addWidget(self.Button2)
-        self.left_layout.addStretch(1)
+
         self.left_layout.addWidget(self.Button3)
-        self.left_layout.addStretch(1)
+
         self.left_layout.addWidget(self.Button4)
 
         self.left_widget.setLayout(self.left_layout)
@@ -72,6 +75,10 @@ class MainUi(QMainWindow):
     def clicked_2(self):
         self.right_widget2.hide()
         self.right_widget1.show()
+    #显示一波小组件
+    '''def clicked_3(self):
+        self.Button5.show()
+        self.Button6.show()'''
 if __name__ == '__main__':
     app=QApplication(sys.argv)
     main=MainUi()

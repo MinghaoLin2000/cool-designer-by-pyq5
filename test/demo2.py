@@ -1,79 +1,59 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+"""
+PyQt5 教程
+
+这个例子说明如何使用QSplitter部件。
+
+作者：我的世界你曾经来过
+博客：http://blog.csdn.net/weiaitaowang
+最后编辑：2016年8月4日
+"""
+
 import sys
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-################################################
-#######创建主窗口
-################################################
-class MainWindow(QMainWindow):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.setWindowTitle('主界面')
-        self.showMaximized()
+from PyQt5.QtWidgets import (QApplication, QWidget, QHBoxLayout,
+QFrame, QSplitter)
+from PyQt5.QtCore import Qt
 
+class Example(QWidget):
 
+  def __init__(self):
+    super().__init__()
 
-################################################
-#######对话框
-################################################
-class logindialog(QDialog):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.setWindowTitle('登录界面')
-        self.resize(200, 200)
-        self.setFixedSize(self.width(), self.height())
-        self.setWindowFlags(Qt.WindowCloseButtonHint)
+    self.initUI()
 
-        ###### 设置界面控件
-        self.frame = QFrame(self)
-        self.verticalLayout = QVBoxLayout(self.frame)
+  def initUI(self):
 
-        self.lineEdit_account = QLineEdit()
-        self.lineEdit_account.setPlaceholderText("请输入账号")
-        self.verticalLayout.addWidget(self.lineEdit_account)
+    hbox = QHBoxLayout(self)
 
-        self.lineEdit_password = QLineEdit()
-        self.lineEdit_password.setPlaceholderText("请输入密码")
-        self.verticalLayout.addWidget(self.lineEdit_password)
+    topleft = QFrame(self)
+    topleft.setFrameShape(QFrame.StyledPanel)
 
-        self.pushButton_enter = QPushButton()
-        self.pushButton_enter.setText("确定")
-        self.verticalLayout.addWidget(self.pushButton_enter)
+    topright = QFrame(self)
+    topright.setFrameShape(QFrame.StyledPanel)
 
-        self.pushButton_quit = QPushButton()
-        self.pushButton_quit.setText("取消")
-        self.verticalLayout.addWidget(self.pushButton_quit)
+    bottom = QFrame(self)
+    bottom.setFrameShape(QFrame.StyledPanel)
 
-        ###### 绑定按钮事件
-        self.pushButton_enter.clicked.connect(self.on_pushButton_enter_clicked)
-        self.pushButton_quit.clicked.connect(QCoreApplication.instance().quit)
+    splitter1 = QSplitter(Qt.Horizontal)
+    splitter1.addWidget(topleft)
+    splitter1.addWidget(topright)
 
+    splitter2 = QSplitter(Qt.Vertical)
+    splitter2.addWidget(splitter1)
+    splitter2.addWidget(bottom)
 
+    hbox.addWidget(splitter2)
+    self.setLayout(hbox)
 
+    self.setGeometry(300, 300, 300, 200)
+    self.setWindowTitle('窗口分隔')
+    self.show()
 
+if __name__ == '__main__':
 
-    def on_pushButton_enter_clicked(self):
-        # 账号判断
-        if self.lineEdit_account.text() == "":
-            return
+  app = QApplication(sys.argv)
+  ex = Example()
+  sys.exit(app.exec_())
 
-        # 密码判断
-        if self.lineEdit_password.text() == "":
-            return
-
-        # 通过验证，关闭对话框并返回1
-        self.accept()
-
-
-
-
-################################################
-#######程序入门
-################################################
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    dialog = logindialog()
-    if  dialog.exec_()==QDialog.Accepted:
-        the_window = MainWindow()
-        the_window.show()
-        sys.exit(app.exec_())
