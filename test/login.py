@@ -15,7 +15,7 @@ from PyQt5.QtWidgets import QLabel
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QTextEdit
 from qtpy import QtGui
-
+import pymysql
 import demo1
 
 from Header import TitleBar,FramelessWindow
