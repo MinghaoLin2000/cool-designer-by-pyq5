@@ -16,6 +16,16 @@ class MainUi(QWidget):
         self.resize(1500,800)
         self.setWindowTitle("Android killer growing")
         #列表控件，列举出主要hook的东西
+        self.layoutLeft=QVBoxLayout()
+        self.cb=QComboBox()
+             #单个添加条目
+        self.cb.addItem('C')
+        self.cb.addItem('C++')
+        self.cb.addItem('Python')
+             #多个添加条目
+        self.cb.addItems(['Java','C#','PHP'])
+             #当下拉索引发生改变时发射信号触发绑定的事件
+        #self.cb.currentIndexChanged.connect(self.selectionchange)
         self.list=QListWidget()
         self.list.setStyleSheet("QListWidget{border:1px solid gray; color:black; }"
                            "QListWidget::Item{padding-top:20px; padding-bottom:4px; }"
@@ -72,10 +82,37 @@ class MainUi(QWidget):
         #layout2.addWidget(label2)
         self.stack1.setLayout(layout2)
     def fab1UI(self):
-        layout = QFormLayout()
-        layout.addRow("姓名", QLineEdit())
-        layout.addRow("地址", QLineEdit())
+        #layout_first的窗口
+        layout_first_wig=QWidget()
+        #os version的那个大容器
+        layout_first=QHBoxLayout()
+        #常见信息的展示
+        os_information=QLabel()
+        os_information.setText("os_version:")
+        os_information_blank=QLabel()
+        phone_name=QLabel()
+        phone_name.setText("Phone_name")
+        phone_name_blank=QLabel()
+        #frida java层中的各级分类
+        Tcb =QComboBox()
+        #显示框
+        SLabel=QTextEdit()
+        #最外层的那个大容器
+        layout=QVBoxLayout()
+        Tcb.addItem("普通hook")
+        Tcb.addItem("")
+        layout_first.addWidget(os_information)
+        layout_first.addWidget(os_information_blank)
+        layout_first.addWidget(phone_name)
+        layout_first.addWidget(phone_name_blank)
+        layout_first.addWidget(Tcb)
+
+        layout_first_wig.setLayout(layout_first)
+        layout.addWidget(layout_first_wig)
+        layout.addWidget(SLabel)
         self.fab1.setLayout(layout)
+    #frida java下选框中点击后的切换内容
+
     def tab2UI(self):
         #Xposed 还没开始学，这波估计得等到frida结束
         layout2=QVBoxLayout()
@@ -93,72 +130,6 @@ class MainUi(QWidget):
         label4=QLabel("未完待续呀")
         layout4.addWidget(label4)
         self.stack4.setLayout(layout4)
-
-    '''def initUI(self):
-        self.resize(1500,800)
-        self.desktopWidth=QApplication.desktop().width() #当前桌面的宽
-        self.desktopHeight=QApplication.desktop().height() #当前桌面的高
-        self.main_widget=QWidget() #创建窗口主部件
-        self.main_widget.setObjectName("main_widget")
-        self.main_layout=QGridLayout() #创建网格布局的对象
-        self.main_widget.setLayout(self.main_layout)
-        self.init_left()
-        self.init_right()
-        #self.left_widget.setStyleSheet('background-color:qlineargradient(x1:0, y1:0, x2:1, y2:1,stop:0 red,stop:0.4 gray,stop:0.8 orange,stop:1 green);')
-        self.main_layout.addWidget(self.left_widget,0,0,1,1)
-        self.main_layout.addWidget(self.right_widget1,0,1,-1,3)
-        self.main_layout.addWidget(self.right_widget2,0,1,-1,3)
-        self.right_widget1.hide()
-        self.right_widget2.show()
-        self.setCentralWidget(self.main_widget)
-    def init_left(self):
-        self.left_widget=QWidget() #创建左侧部件
-        self.left_widget.setObjectName('left_widget') #左侧部件对象命名
-        self.left_layout=QVBoxLayout()
-        self.Button1=QPushButton("Frida")
-        self.Button2=QPushButton("Xposed")
-        self.Button3 = QPushButton("Device")
-        self.Button4 = QPushButton("Poc")
-        self.left_layout.addWidget(self.Button1)
-        self.left_layout.addWidget(self.Button2)
-
-        self.left_layout.addWidget(self.Button3)
-
-        self.left_layout.addWidget(self.Button4)
-
-        self.left_widget.setLayout(self.left_layout)
-
-
-        # 把切换界面的button和两个跳转函数进行绑定
-        self.Button1.clicked.connect(self.clicked_1)
-        self.Button2.clicked.connect(self.clicked_2)
-    def init_right(self):
-        self.right_widget1=QWidget()
-        self.right_layout1=QGridLayout()
-        self.right_widget1.setLayout(self.right_layout1)
-        self.text1=QLabel("fuck") #加一个用来界面跳转的button1
-        self.text1.setText("进入界面2")
-        self.right_layout1.addWidget(self.text1)
-
-        self.right_widget2=QWidget()
-        self.right_layout2=QGridLayout()
-        self.right_widget2.setLayout(self.right_layout2)
-        self.text2=QLabel("YenKocd")
-        self.text2.setText("进入界面1")
-        self.right_layout2.addWidget(self.text2)
-
-
-    def clicked_1(self):
-        self.right_widget1.hide()
-        self.right_widget2.show()
-    def clicked_2(self):
-        self.right_widget2.hide()
-        self.right_widget1.show()
-    '''
-    #显示一波小组件
-    '''def clicked_3(self):
-        self.Button5.show()
-        self.Button6.show()'''
 if __name__ == '__main__':
     app=QApplication(sys.argv)
     main=MainUi()
